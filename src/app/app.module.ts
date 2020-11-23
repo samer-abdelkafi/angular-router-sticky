@@ -16,6 +16,10 @@ import { FilterPipe } from './products/filter.pipe';
 import { FormsModule } from '@angular/forms';
 
 
+import { RouteReuseStrategy } from '@angular/router';
+import { CacheRouteReuseStrategy } from './cache-route-reuse.strategy';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,10 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: RouteReuseStrategy,
+    useClass: CacheRouteReuseStrategy,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
