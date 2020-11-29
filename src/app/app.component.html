@@ -1,14 +1,15 @@
 <mat-toolbar color="primary">
   <span>Router App</span>
 </mat-toolbar>
- 
+
 <nav mat-tab-nav-bar>
-  <a mat-tab-link routerLink="/home" 
-     routerLinkActive #hrla="routerLinkActive" 
-     [active]="hrla.isActive">Home</a>
-  <a mat-tab-link routerLink="/products" 
-     routerLinkActive #prla="routerLinkActive" 
-     [active]="prla.isActive">Products</a>
+  <a mat-tab-link uiSref="home" [active]="uiRouter.stateService.includes('home')">
+    Home
+  </a>
+  <a mat-tab-link uiSref="products" [active]="uiRouter.stateService.includes('products')">
+    Products
+  </a>
 </nav>
- 
-<router-outlet></router-outlet>
+
+<ui-view name="home" [hidden]="!uiRouter.stateService.includes('home')"></ui-view>
+<ui-view name="products" [hidden]="!uiRouter.stateService.includes('products')"></ui-view>

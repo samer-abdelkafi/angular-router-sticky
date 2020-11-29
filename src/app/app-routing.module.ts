@@ -1,15 +1,34 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
+import { UIRouter, UIRouterModule } from '@uirouter/angular';
+import { StickyStatesPlugin } from "@uirouter/sticky-states";
 
-const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductsComponent },
+
+
+const routes = [
+  {
+    name: 'home',
+    url: '/home',
+    views: {
+      home: { component: HomeComponent }
+    }
+  },
+  {
+    name: 'products',
+    sticky: true,
+    views: {
+      products: { component: ProductsComponent }
+    }
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [UIRouterModule.forRoot({ states: routes, useHash: true })],
+  exports: [UIRouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  constructor(uiRouter: UIRouter) {
+    uiRouter.plugin(StickyStatesPlugin);
+  }
+}
